@@ -151,3 +151,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 Config.xml
+*.user
+build-CProgStarter-Desktop_Qt_6_6_0_MinGW_64_bit-Debug/*
