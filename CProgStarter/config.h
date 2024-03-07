@@ -1,28 +1,27 @@
 #ifndef CONFIG_H
 #define CONFIG_H
-#include <QFile>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
+#include <QObject>
 #include <map>
-#include <string>
-class Config
+class Config : public QObject
 {
+    Q_OBJECT
 public:
-    Config(char* filename);
-    void SetButton(int index, std::string cmd);
-    void SetPort(std::string port);
-    void SetBaudRate(int rate);
-    std::string GetPort(){return port;}
+    Config(char* filename, QObject *parent = nullptr);
+    void SetButton(int index, QString cmd){buttons[index]=cmd;}
+    void SetPort(QString port){this->port = port;}
+    void SetBaudRate(int rate){this->baud_rate = rate;}
+    QString GetPort(){return port;}
     int GetBaudRate(){return baud_rate;}
+    QString GetCmd(int index){return buttons[index];}
 private:
-    void xml_write();
-    int button_indexer(std::string btn);
-    std::map<int,std::string> buttons;
-    QFile file;
-    QXmlStreamReader* xml_reader;
-    QXmlStreamWriter* xml_writer;
-    std::string port = "COM4";
+    int button_indexer(QString btn);
+    std::map<int,QString> buttons;
+    QString file;
+    QString port = "COM4";
     int baud_rate = 9600;
+public slots:
+    void xml_write();
+    void xml_read();
 };
 
 #endif // CONFIG_H

@@ -1,8 +1,11 @@
-QT += quick
+QT += core quick
+
+CONFIG += c++17 console
 
 SOURCES += \
         config.cpp \
-        main.cpp
+        main.cpp \
+        scrolledit.cpp
 
 resources.files = main.qml 
 resources.prefix = /$${TARGET}
@@ -20,4 +23,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    config.h
+    config.h \
+    scrolledit.h

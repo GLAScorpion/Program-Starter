@@ -1,13 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "config.h"
-
+#include <iostream>
 int main(int argc, char *argv[])
 {
-    Config conf = Config("Config.xml");
-    conf.SetButton(3,"C:/start");
-    QGuiApplication app(argc, argv);
 
+    QGuiApplication app(argc, argv);
+    Config conf("Config.xml");
+    conf.SetButton(7,"C:/deploy");
+    conf.xml_write();
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/CProgStarter/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
+    QList<QObject*> obj = engine.rootObjects();
+    obj[0]->dumpObjectInfo();
     return app.exec();
 }
