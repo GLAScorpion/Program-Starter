@@ -24,14 +24,14 @@ void Config::xml_write(){
     xml_writer->writeStartElement("config");
     xml_writer->writeStartElement("buttons");
     for(auto i = buttons.begin();i != buttons.end();i++){
-        xml_writer->writeStartElement("button_" + std::to_string(i->first));
+        xml_writer->writeStartElement(QString("button_") + QString::number(i->first));
         xml_writer->writeCharacters(i->second);
         xml_writer->writeEndElement();
     }
     xml_writer->writeEndElement();
     xml_writer->writeEmptyElement("port");
     xml_writer->writeAttribute("port", port);
-    xml_writer->writeAttribute("baud_rate", std::to_string(baud_rate));
+    xml_writer->writeAttribute("baud_rate", QString::number(baud_rate));
     xml_writer->writeEndElement();
     xml_writer->writeEndDocument();
     open_file->close();
