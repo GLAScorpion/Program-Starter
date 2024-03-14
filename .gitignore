@@ -152,4 +152,4 @@ cython_debug/
 #.idea/
 Config.xml
 *.user
-build-CProgStarter-Desktop_Qt_6_6_0_MinGW_64_bit-Debug/*
+build-CProgManager-Desktop_Qt_6_6_0_MinGW_64_bit-Debug/*

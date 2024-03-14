@@ -3,7 +3,7 @@
 #include <QXmlStreamWriter>
 #include <QRegularExpression>
 #include <QFile>
-Config::Config(char* filename, QObject *parent)
+Config::Config(QString filename, QObject *parent)
     :QObject(parent),file{filename}
 {
     bool exist = QFile(file).exists();

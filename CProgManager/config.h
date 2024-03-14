@@ -6,8 +6,8 @@ class Config : public QObject
 {
     Q_OBJECT
 public:
-    Config(char* filename, QObject *parent = nullptr);
-    void SetButton(int index, QString cmd){buttons[index]=cmd;}
+    Config(QString filename, QObject *parent = nullptr);
+    std::map<int,QString>* btns(){return &buttons;}
     void SetPort(QString port){this->port = port;}
     void SetBaudRate(int rate){this->baud_rate = rate;}
     QString GetPort(){return port;}
