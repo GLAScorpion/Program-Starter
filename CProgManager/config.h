@@ -6,22 +6,17 @@ class Config : public QObject
 {
     Q_OBJECT
 public:
-    Config(QString filename, QObject *parent = nullptr);
-    std::map<int,QString>* btns(){return &buttons;}
-    void SetPort(QString port){this->port = port;}
-    void SetBaudRate(int rate){this->baud_rate = rate;}
-    QString GetPort(){return port;}
-    int GetBaudRate(){return baud_rate;}
-    QString GetCmd(int index){return buttons[index];}
+    Config(QObject *parent = nullptr):QObject(parent){}
+    void SetFile(QString filename){file = filename;}
+
 private:
     int button_indexer(QString btn);
-    std::map<int,QString> buttons;
-    QString file;
-    QString port = "COM4";
-    int baud_rate = 9600;
+    QString file = "";
 public slots:
-    void xml_write();
+    void xml_write(int baud_rate, QString port, std::map<int,QString> buttons);
     void xml_read();
+signals:
+    void content_ready(int baud_rate, QString port, std::map<int,QString> buttons);
 };
 
 #endif // CONFIG_H
