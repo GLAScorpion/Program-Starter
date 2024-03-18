@@ -45,7 +45,6 @@ void ButtonEdit::edit_toggle(){
         cmd_edit->setReadOnly(true);
         cmd_edit->setText(set_cmd);
         btn_edit->setText(QString("Edit"));
-        layout->replaceWidget(btn_confirm,btn_remove);
         btn_confirm->hide();
         btn_remove->show();
 
@@ -61,11 +60,12 @@ void ButtonEdit::save(){
 }
 
 void ButtonEdit::remove_process(){
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setText("Are you sure you want to remove it?");
     //msgBox.setInformativeText("");
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
+    msgBox.setIcon(QMessageBox::Question);
     if(msgBox.exec() == QMessageBox::Save){
        emit remove_confirm(index);
     }

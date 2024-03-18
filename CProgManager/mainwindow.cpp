@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFile>
+#include <QDir>
 #include <QInputDialog>
-
+//#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,10 +12,23 @@ MainWindow::MainWindow(QWidget *parent)
     , err_mex(new QErrorMessage)
 {
     ui->setupUi(this);
+    QFile f(":style.qss");
+
+    if (!f.exists())   {
+        printf("Unable to set stylesheet, file not found\n");
+    }
+    else   {
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        setStyleSheet(ts.readAll());
+    }
+
+
     scroll_area = findChild<QScrollArea*>("scroll_area");
     scroll_layout = new QVBoxLayout();
     scroll_layout->setAlignment(Qt::AlignTop);
     scroll_area->findChild<QWidget*>("scroll_area_widget_content")->setLayout(scroll_layout);
+    main_vert_layout = findChild<QVBoxLayout*>("main_vert_layout");
     save_button = findChild<QPushButton*>("save_button");
     load_button = findChild<QPushButton*>("load_button");
     conf_path_edit = findChild<QLineEdit*>("conf_path_edit");
@@ -59,7 +73,9 @@ void MainWindow::add_button(int index, QString cmd){
 
 void MainWindow::prep_button(){
     bool ok;
-    int index = QInputDialog::getInt(this, tr("Add a new button"),tr("New button number:"),0,0,INT_MAX,1, &ok);
+    int last_index = 0;
+    if(buttons.size()) last_index = (--buttons.end())->second->GetIndex() + 1;
+    int index = QInputDialog::getInt(this, tr("Add a new button"),tr("New button number:"),last_index,0,INT_MAX,1, &ok);
     if (ok){
         if(buttons[index]){
             err_mex->showMessage("Button already registered");

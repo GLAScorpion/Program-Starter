@@ -32,6 +32,7 @@ private:
     QLineEdit* conf_path_edit;
     Config* conf;
     QVBoxLayout* scroll_layout;
+    QVBoxLayout* main_vert_layout;
     QErrorMessage* err_mex;
     int baud_rate = 9600;
     QString port = "COM4";

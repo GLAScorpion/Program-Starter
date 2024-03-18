@@ -8,7 +8,7 @@
 #include <QPushButton>
 
 enum ButtonEditConst : int {
-    Spacing = 50, Height = 40, MinWidth = 100, MinBigWidth = 300, ContentHeight = 30
+    Spacing = 50, Height = 50, MinWidth = 100, MinBigWidth = 300, ContentHeight = 40
 };
 
 class ButtonEdit : public QWidget
